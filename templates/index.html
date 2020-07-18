@@ -1,0 +1,22 @@
+<!doctype html>
+
+<html>
+<body>
+<title>SFTP Browser</title>
+<meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<a href="/my-link/">Click me</a>
+<form action="{{ url_for('Login') }}" method='POST'>
+  <h1>{{message}}</h1>
+  <label for="hostname">Hostname : </label>
+  <input type="text" id="hostname" name="hostname"><br><br>
+  <label for="port">Port : </label>
+  <input type="text" id="port" name="port"><br><br>
+  <label for="username">Username : </label>
+  <input type="text" id="username" name="username"><br><br>
+  <label for="pwd">Password : </label>
+  <input type="password" id="pwd" name="pwd" minlength="8"><br><br>
+  <input type="submit" value="Submit">
+</form>
+</body>
+</html>

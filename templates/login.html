@@ -1,0 +1,16 @@
+<html>
+<body>
+<title>SFTP Browser</title>
+<meta charset=utf-8>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<p> {{message}}</p>
+<form action="{{ url_for('Browse') }}" method='POST'>
+<label for="browse">Browse : </label>
+<input type="text" id="browse" name="browse"><br><br>
+<input type="submit" value="Browse">
+<p>{{list}}</p>
+<p>{{path}}</p>
+</form>
+</body>
+</html>
