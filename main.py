@@ -1,19 +1,3 @@
-# import pysftp
-# import flask
-#
-# srv = pysftp.Connection(host="OBLIVION", username="hp",
-# password="Sumedh11!")
-#
-#
-# # Get the directory and file listing
-# srv.chdir("G:\PROJECTS\FTP\Storage")
-# data = srv.listdir()
-# # Closes the connection
-# srv.close()
-#
-# # Prints out the directories and files, line by line
-# for i in data:
-#     print (i)
 from flask import Flask, render_template, request
 import SFTPConn as conn
 app = Flask(__name__)
@@ -49,8 +33,8 @@ def Login():
 def Browse():
     path = request.form['browse']
     print('browse',conn.server)
-    data = conn.SrvObj.BrowseDir(conn.server, path)
-    return render_template('login.html', list=data)
+    DirData = conn.SrvObj.BrowseDir(conn.server, path)
+    return render_template('browse.html', list=DirData, path=path)
 
 if __name__ == '__main__':
   app.run(debug=True)
