@@ -1,4 +1,5 @@
 import pysftp
+import os
 
 global server
 global SrvObj
@@ -17,19 +18,25 @@ class SFTPConnection:
 
     def Connect(self):
         print("In connection")
-        self.Show()
+        #self.Show()
         srv = pysftp.Connection(host=self.hostname,username=self.username, password=self.password)
         print("OUT connection")
         return srv
 
     def BrowseDir(self,srv, path):
+        dataDict = {}
         data = srv.listdir(remotepath=path)
+        for items in data:
+            #if srv.isdir(os.path.join(path, items)):
+            if srv.isdir(path+"/"+items):
+                dataDict[items] = True
+            else:
+                dataDict[items] = False
+        print('DataDict : ',dataDict)
+        return dataDict
 
-        print(data)
-        return data
 
 
-
-# c = SFTPConnection('OBLIVION', 'hp', 'Sumedh11!',22)
-# srv=c.Connect
-# c.BrowseDir(srv,"G:/")
+# SrvObj = SFTPConnection('OBLIVION', 'hp', 'Sumedh11!',22)
+# server=SrvObj.Connect()
+# SrvObj.BrowseDir(server,"C:")
