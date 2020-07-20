@@ -3,6 +3,7 @@ import os
 
 global server
 global SrvObj
+global AddtoSelectedList
 
 class SFTPConnection:
     def __init__(self,hostname, username, password,port):
@@ -18,7 +19,6 @@ class SFTPConnection:
 
     def Connect(self):
         print("In connection")
-        #self.Show()
         srv = pysftp.Connection(host=self.hostname,username=self.username, password=self.password)
         print("OUT connection")
         return srv
@@ -27,7 +27,6 @@ class SFTPConnection:
         dataDict = {}
         data = srv.listdir(remotepath=path)
         for items in data:
-            #if srv.isdir(os.path.join(path, items)):
             if srv.isdir(path+"/"+items):
                 dataDict[items] = True
             else:
