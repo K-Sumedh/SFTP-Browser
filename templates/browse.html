@@ -3,18 +3,40 @@
 <title>SFTP Browser</title>
 <meta charset=utf-8>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<script>
+FileNamesList = []
+{%for filename in list:%}
+  checkboxes = document.getElementById("filename")
+  if(checkboxes.checked == true)
+  {
+    FileNamesList.push(filename)
+  }
+{%endfor%}
+</script>
 <p> {{message}}</p>
-<form action="{{ url_for('Browse') }}" method='POST'>
+<form action="{{ url_for('Browse')}}" method='POST'>
 <label for="browse">Browse : </label>
-<input type="text" id="browse" name="browse"><br><br>
+<input type="text" id="browse" name="browse" value="{{path}}"><br><br>
 <input type="submit" value="Browse">
-<p><h2> Current Directory : {{path}}</h2></p>
+<div>
+  <h2> Current Directory : {{path}}</h2>
+  <form action="{{ url_for('upload')}}" method='POST'>
+  <a href="{{ url_for('upload')}}" method='POST'>
+    <button type="button" onclick="MakeFileLists()">Upload</button>
+  </a>
+</form>
+</div>
 {% for Filepath, isDirFlag in list.items()%}
 {% if isDirFlag: %}
-  <a href "{{path}}/{{Filepath}}"> <p>{{Filepath}}</p></a>
+  <div>
+      <input type="submit" name="browsePath" value="{{Filepath}}" />
+      <input type ="checkbox" id="{{Filepath}}">
+  </div>
 {% else: %}
-  <p> {{Filepath}}</p>
+  <div>
+      <label> {{Filepath}}</label>
+      <input type ="checkbox" id="{{Filepath}}">
+  </div>
 {%endif%}
 {% endfor %}
 </form>
