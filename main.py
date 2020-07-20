@@ -32,9 +32,29 @@ def Login():
 @app.route('/browse/', methods=['POST'])
 def Browse():
     path = request.form['browse']
-    print('browse',conn.server)
-    DirData = conn.SrvObj.BrowseDir(conn.server, path)
-    return render_template('browse.html', list=DirData, path=path)
+    try:
+        browsePath = request.form['browsePath']
+        print('browse',conn.server, "------------",path+'/'+browsePath)
+        DirData = conn.SrvObj.BrowseDir(conn.server, path+'/'+browsePath)
+        return render_template('browse.html', list=DirData, path=path+'/'+browsePath)
+    except:
+        DirData = conn.SrvObj.BrowseDir(conn.server, path)
+        return render_template('browse.html', list=DirData, path=path)
+
+@app.route('/upload/', methods=['POST'])
+def upload():
+    fileNameData = request.get_json()
+    path = request.form['browse']
+    print("AddtoSelectedList : ",fileNameData)
+    try:
+        browsePath = request.form['browsePath']
+        print('browse',conn.server, "------------",path+'/'+browsePath)
+        DirData = conn.SrvObj.BrowseDir(conn.server, path+'/'+browsePath)
+        return render_template('browse.html', list=DirData, path=path+'/'+browsePath)
+    except:
+        DirData = conn.SrvObj.BrowseDir(conn.server, path)
+        return render_template('browse.html', list=DirData, path=path)
+
 
 if __name__ == '__main__':
   app.run(debug=True)
